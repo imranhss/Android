@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
         recyclerView=findViewById(R.id.recycler_view);
         recyclerView.setHasFixedSize(true);
         layoutManager=new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
         classAdapter=new ClassAdapter( classItems, this);
         recyclerView.setAdapter(classAdapter);
 
@@ -55,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
         Button cancel=view.findViewById(R.id.cancel_btn);
         Button add=view.findViewById(R.id.add_btn);
 
-        cancel.setOnClickListener(View-> dialog.dismiss());
-        add.setOnClickListener(View-> addClass());
+        cancel.setOnClickListener(v-> dialog.dismiss());
+        add.setOnClickListener(v-> {
+            addClass();
+            dialog.dismiss();
+        });
 
-        builder.create().show();
+//        builder.create().show();
     }
 
     private void addClass() {
@@ -66,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
         String subjectName=subject_edit.getText().toString();
 
         classItems.add(new ClassItem(className,subjectName));
+        classAdapter.notifyDataSetChanged();
 
     }
 }
