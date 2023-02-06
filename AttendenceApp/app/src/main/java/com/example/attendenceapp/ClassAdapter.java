@@ -11,9 +11,22 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class ClassAdapter  extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
-ArrayList<ClassItem> classItems;
+public class ClassAdapter extends RecyclerView.Adapter<ClassAdapter.ClassViewHolder> {
+    ArrayList<ClassItem> classItems;
     Context context;
+    private  OnItemClickedListener onItemClickedListener;
+
+    public OnItemClickedListener getOnItemClickedListener() {
+        return onItemClickedListener;
+    }
+
+    public void setOnItemClickedListener(OnItemClickedListener onItemClickedListener) {
+        this.onItemClickedListener = onItemClickedListener;
+    }
+
+    public interface OnItemClickedListener{
+        void onClick(int possition);
+    }
 
     public ClassAdapter(ArrayList<ClassItem> classItems, Context context) {
         this.classItems = classItems;
@@ -23,15 +36,15 @@ ArrayList<ClassItem> classItems;
     @NonNull
     @Override
     public ClassViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View itemView= LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
+        View itemView = LayoutInflater.from(parent.getContext()).inflate(R.layout.class_item, parent, false);
 
         return new ClassViewHolder(itemView);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ClassViewHolder holder, int position) {
-            holder.className.setText(classItems.get(position).getClassName());
-            holder.subjectName.setText(classItems.get(position).getSubjectName());
+        holder.className.setText(classItems.get(position).getClassName());
+        holder.subjectName.setText(classItems.get(position).getSubjectName());
 
     }
 
@@ -42,14 +55,14 @@ ArrayList<ClassItem> classItems;
     }
 
 
-    public static class  ClassViewHolder extends  RecyclerView.ViewHolder{
+    public static class ClassViewHolder extends RecyclerView.ViewHolder {
         TextView className, subjectName;
 
         public ClassViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            className=itemView.findViewById(R.id.class_tv);
-            subjectName=itemView.findViewById(R.id.subject_tv);
+            className = itemView.findViewById(R.id.class_tv);
+            subjectName = itemView.findViewById(R.id.subject_tv);
 
 
         }
