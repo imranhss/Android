@@ -49,6 +49,17 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(layoutManager);
         classAdapter = new ClassAdapter(classItems, this);
         recyclerView.setAdapter(classAdapter);
+
+        setToolbar();
+
+
+        //when we click on item it will go to another activity by this method
+        classAdapter.setOnItemClickedListener(position -> goToItemActivity(position));
+
+
+    }
+
+    private void setToolbar() {
         toolbar = findViewById(R.id.toolbar);
         title = toolbar.findViewById(R.id.title_toolbar);
         subTitle = toolbar.findViewById(R.id.subtitle_toolbar);
@@ -57,14 +68,9 @@ public class MainActivity extends AppCompatActivity {
         save=toolbar.findViewById(R.id.save);
 
         title.setText("Attendence App");
-        subTitle.setVisibility(View.INVISIBLE);
-        back.setVisibility(View.INVISIBLE);
-        save.setVisibility(View.INVISIBLE);
-
-        //when we click on item it will go to another activity by this method
-        classAdapter.setOnItemClickedListener(position -> goToItemActivity(position));
-
-
+        subTitle.setVisibility(View.GONE);
+        back.setVisibility(View.GONE);
+        save.setVisibility(View.GONE);
     }
 
     private void goToItemActivity(int position) {
